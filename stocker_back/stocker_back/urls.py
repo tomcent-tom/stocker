@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^polls/', include('stocker_backend.urls')),
+    url(r'^stocker_back/', include('stocker_backend.urls')),
 ]
