@@ -1,4 +1,4 @@
-def convert_html_to_json(html):
+def convert_html_to_matrix(html):
     start_table = html.find('<table class="dataOverview"')
     end_table = html.find('</table>', start_table)
     j_table = []
@@ -12,7 +12,6 @@ def convert_html_to_json(html):
             break
         next_row_end = html.find('</tr>', index)
         row = []
-        print 'next row: ' + html[next_row:next_row_end]
         while True:
             next_cell = html.find('<td', index)
             if next_cell == -1 or next_cell > next_row_end:
@@ -32,13 +31,27 @@ def convert_html_to_json(html):
                     row.append(html[index:next_tab])
                     index = next_cell_end
                     break
-
-
         j_table.append(row)
-
     return j_table
 
+def convert_matrix_to_table(matrix):
+    json_data = []
+    header = matrix[0]
+    i = 0
+    for row in matrix:
+        if i != 0:
+            json_row = {}
+            j = 0
+            for el in row:
+                json_row[header[j]]=el
+                j += 1
+            json_data.append(json_row)
+        i +=1
+    return json_data
 
+def get_extra_exco_data(href):
+
+    return None
 
 Bel20 = {
     'ABI':
