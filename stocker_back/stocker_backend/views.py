@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.http import HttpResponse
+import requests
 from django.shortcuts import render
 from . import models
+from . import config
 import json
+import datetime
 
 def index(request):
     return HttpResponse("Hello, world. Tom houdt van Tis.")
 # Create your views here.
 
-def getStockRate(request):
-
-    return HttpResponse("10,20,30,40")
+def getStockRate(request, stock_id):
+    stock = config.Bel20[stock_id]
+    response = requests.get(config.Bloomber_url+stock['ref'])
+    joutput = json.loads(response.content)
+    return HttpResponse(joutput['price'])
 
 def getPortfolio(request, p_id):
     p = models.Portfolio.objects.get(id=p_id)
@@ -30,3 +35,15 @@ def getPortfolio(request, p_id):
     response['purchases'] = pcs_json
     return HttpResponse(json.dumps(response))
 
+def getExcoList(request, date1, date2):
+    if date2 is None:
+        end_date = datetime.date.today()
+    else:
+        end_date = datetime.strptime(date2, '%d-%m-%Y')
+    start_date = datetime.strptime(date1, '%d-%m-%Y')
+
+def getDefaultExcoList(request):
+    url = config.fsma_url['baseline_default']
+    response = requests.get(url)
+    j_data = config.convert_html_to_json(response.content)
+    return HttpResponse(json.dumps(j_data))
