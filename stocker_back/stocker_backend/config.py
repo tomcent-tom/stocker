@@ -49,9 +49,38 @@ def convert_matrix_to_table(matrix):
         i +=1
     return json_data
 
-def get_extra_exco_data(href):
-
-    return None
+def get_extra_exco_data(html):
+    start_table = html.find('<table class="dataOverview"')
+    end_table = html.find('</table>', start_table)
+    j_table = {}
+    index = start_table
+    index = html.find('<tr>', index)
+    while True:
+        next_row = html.find('<th', index)
+        if next_row == -1 or next_row > end_table:
+            break
+        index = next_row
+        next_cell_end = html.find('</th>', index)
+        while True:
+            index = html.find('>', index) + 1
+            if html[index] != '<':
+                next_tab = html.find('<', index)
+                key = html[index:next_tab]
+                index = next_cell_end
+                break
+        next_row = html.find('<td', index)
+        if next_row == -1 or next_row > end_table:
+            break
+        index = next_row
+        next_cell_end = html.find('</td>', index)
+        while True:
+            index = html.find('>', index) + 1
+            if html[index] != '<':
+                next_tab = html.find('<', index)
+                j_table[key] = html[index:next_tab]
+                index = next_cell_end
+                break
+    return j_table
 
 Bel20 = {
     'ABI':
@@ -160,5 +189,6 @@ Bloomber_url = 'https://www.bloomberg.com/markets/api/security/basic/'
 fsma_url = {
     'baseline_search': 'http://www.fsma.be/nl/Supervision/fm/ma/trans_bl/TransactionsSearch.aspx?',
     'baseline_default': 'http://www.fsma.be/nl/Supervision/fm/ma/trans_bl/InsTrans.aspx',
-    'other': 's=1&c='
+    'other': 's=1&c=',
+    'baseline_extra':'http://www.fsma.be'
 }

@@ -48,5 +48,8 @@ def getDefaultExcoList(request):
     data = config.convert_html_to_matrix(response.content)
     j_data = config.convert_matrix_to_table(data)
     for purchase in j_data:
-        extra_data = get_extra_exco_data(purchase['Href'])
+        url = config.fsma_url['baseline_extra']+purchase['Href']
+        response = requests.get(url)
+        extra_data = config.get_extra_exco_data(response.content)
+        purchase.update(extra_data)
     return HttpResponse(json.dumps(j_data))
