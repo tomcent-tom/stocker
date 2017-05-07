@@ -5,7 +5,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 app._static_folder = 'static'
 db = SQLAlchemy(app)
-db.create_all()
 print "DB created"
 CORS(app)
 print "CORS enabled"
