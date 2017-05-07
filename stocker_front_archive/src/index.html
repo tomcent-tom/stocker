@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>stocker</title>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/stocker_front/src/styles.css">
+    <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.css" type="text/css">
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="https://jspm.io/system@0.16.js"></script>
+    <script src="/static/stocker_front/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="/static/stocker_front/src/systemjs.config.js"></script>
+
+    <script>
+      System.import('/static/stocker_front/src/main.js').catch(function(err){ console.error(err); });
+    </script>
+  </head>
+
+  <body>
+    <my-app>Loading stocker...</my-app>
+  </body>
+</html>
