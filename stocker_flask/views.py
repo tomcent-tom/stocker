@@ -4,6 +4,7 @@ import config
 import json
 import models
 from config import db
+import requests
 
 def index(url):
     return send_file(url)
