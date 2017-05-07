@@ -52,4 +52,6 @@ def getDefaultExcoList(request):
         response = requests.get(url)
         extra_data = config.get_extra_exco_data(response.content)
         purchase.update(extra_data)
-    return HttpResponse(json.dumps(j_data))
+        response = HttpResponse(json.dumps(j_data))
+        response['Access-Control-Allow-Origin'] =  '*'
+    return response
