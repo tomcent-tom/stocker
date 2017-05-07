@@ -1,0 +1,46 @@
+        <div class="card">
+          <div class="card-block">
+            <h4 class="card-title">Portfolio</h4>
+            <p class="lead">General information</p>
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table">
+                  <thead></thead>
+                  <tbody *ngIf="portfolio">
+                    <tr>
+                      <td>Name</td>
+                      <td>{{portfolio.username}}</td>
+                    </tr>
+                    <tr>
+                      <td>Email adres</td>
+                      <td>{{portfolio.email}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p class="lead">Stocks</p>
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Amount</th>
+                      <th>Price</th>
+                      <th>Current price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let purchase of purchases">
+                      <td>{{purchase.name}}</td>
+                      <td>{{purchase.volume}}</td>
+                      <td>{{purchase.price}}</td>
+                      <td>TODO</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>

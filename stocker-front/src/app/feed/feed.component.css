@@ -1,0 +1,4 @@
+.feed {
+  height: 300px !important;
+  overflow: scroll;
+}
