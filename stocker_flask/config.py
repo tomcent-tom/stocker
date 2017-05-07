@@ -3,11 +3,11 @@ from flask import Flask, send_file
 from flask_cors import CORS
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app._static_folder = 'static'
 db = SQLAlchemy(app)
-print "DB created"
 CORS(app)
-print "CORS enabled"
 
 def convert_html_to_matrix(html):
     start_table = html.find('<table class="dataOverview"')
